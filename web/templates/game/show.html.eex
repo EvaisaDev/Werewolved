@@ -1,0 +1,37 @@
+<script type="text/javascript">
+   var userName = "<%= @current_user && @current_user.name %>";
+   var gameSlug = "<%= @game.slug %>";
+</script>
+
+<h2>Welcome to game: <%= @game.slug %></h2>
+<div class="row">
+  <div class="col-md-12 alert alert-info">
+    <%= user_message(@current_user) %>
+  </div>
+  
+  <div class="col-md-8 game-area">
+    <div class="waiting-room"> 
+      <h2>Chat Messages</h2>
+      <%= if @current_user && @current_user.name do %>
+        <input type="text" id="NewMessage" placeholder="Type and press enter..." class="form-control">
+      <% end %>
+      <ul id="MessageList" class="list-unstyled"></ul>
+    </div>
+    <div class="active-game">
+        <h1>Game is active</h1>
+    </div>
+    <button class="btn" type="button" id="game-toggle">
+      Start Game
+    </button>
+  </div>
+
+  <div  class="col-md-4">
+    <h2>Who’s Online</h2>
+    <ul id="UserList" class="list-unstyled">
+      <li>Loading online users...</li>
+    </ul>
+  </div>
+</div>
+
+<%= link "Edit", to: game_path(@conn, :edit, @game) %>
+<%= link "Back", to: game_path(@conn, :index) %>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hello Werewolf!</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="jumbotron">
+          <h2>Werewolf</h2>
+        </div>
+        <div class="session">
+           <%= if @current_user do %>
+             <%= link("Sign Out", to: session_path(@conn, :delete), class: "btn btn-success pull-right") %>
+           <% else %>
+             <%= link("Sign In", to: session_path(@conn, :new), class: "btn btn-success pull-right") %>
+             <%= link("Sign Up", to: user_path(@conn, :new), class: "btn btn-success pull-right") %>
+           <% end %>
+        </div>
+      </header>
+
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+      <footer class="footer">
+        A project by the <a href="http://www.meetup.com/Santa-Monica-Elixir-Meetup/">Santa Monica Elixir Meetup</a>.
+        Check out the <a href="https://github.com/santamonicaelixir/werewolf">source code</a>.
+      </footer>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>
